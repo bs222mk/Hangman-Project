@@ -1,0 +1,51 @@
+/**
+ * 
+ */
+package Hangman;
+import java.util.*;
+public class Practice {
+
+	public static void main(String[] args) {
+
+		Scanner sc = new Scanner (System.in);
+		System.out.println("WELCOME TO THE HANGMAN GAME!");
+		String chosenword = "Linnaeus";
+		System.out.println("\n" + "Enter 'a' to continue");
+		System.out.println("Enter any other key to exit");
+		String str = sc.next();
+		int counter = 0;
+		int wrongguess = 0;
+		if(str.equals("a")) {
+		System.out.println("----------------------------------" + "\n");
+		System.out.println("Word is " + chosenword.length() + " letters long");		
+		
+		for (int i = 1; i <= chosenword.length(); i++) {
+			System.out.print("_ ");
+		}
+		System.out.println("\n" + "----------------------------------" + "\n");
+
+		for (int i = 1; i <9; i++) {
+			counter++;
+			System.out.println("Number of Guesses left: " + (9 - i));
+			System.out.println("Number of wrong guesses: " + wrongguess);
+			System.out.println("Letters guessed: ");
+			System.out.println("Guess letter: ");
+			System.out.println("\n" + "----------------------------------" + "\n");
+			
+			if (counter == 8) {
+				System.out.println("Guesses left : 0" + "\n" + "YOU HAVE BEEN HUNG! The word was " + chosenword + "\n" + "THANK YOU FOR PLAYING, TRY AGAIN NEXT TIME!");
+			
+			}
+			}
+		}
+		
+		else {
+			System.out.println("YOU HAVE BEEN HUNG! The word was " + chosenword);
+			System.out.println("THANK YOU FOR PLAYING! SEE YOU NEXT TIME");
+			System.exit(0);
+		}
+		
+		sc.close();
+	}
+
+}
