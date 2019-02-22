@@ -1,0 +1,89 @@
+package Hangman;
+import java.util.*;
+public class Hangman {
+
+	public static void main (String [] args) {
+		Scanner sc = new Scanner (System.in);
+		System.out.println("WELCOME TO A GAME OF HANGMAN!" + "\n" + "\n TO PLAY GAME PRESS Y" + "\n" + "PRESS ANY OTHER KEY TO EXIT" + "\n");
+		String start = sc.nextLine();
+		if (start.equals("y")) {	
+
+			System.out.println("HOW TO PLAY GAME: " + "\n" + "A RANDOM 6 LETTER WORD HAS BEEN CHOSEN." + "\n"+ "YOU HAVE 8 TRIES TO GUESS THE WORD."+ "\n" + "YOU CAN ONLY GUESS 1 LETTER OF THE WORD AT A TIME."+"\n"+"IF THE LETTER IS CORRECT, IT WILL REPLACE THE BLANK SPACE"+"\n"+"WITH THE POSITION OF THAT LETTER IN THE WORD.");
+			System.out.println("PRESS OK TO BEGIN");
+			String begin = sc.nextLine();
+			if(begin.equals("ok")) {
+
+				System.out.println("----------------------------------------------" + "\n");
+
+				String word = "apple";
+				char [] secret = word.toCharArray();
+				char [] userGuess = new char[word.length()];
+				int totalguess = 8;
+				boolean notCorrectWord = true;
+				int counter = 0;
+
+				for (int i = 0; i < word.length(); i++) {
+					userGuess[i] = '_';
+				}
+				
+				long timeStart = System.currentTimeMillis();
+
+				while(notCorrectWord && counter < totalguess) {
+					System.out.println("Number of Guesses left: " + (totalguess - counter));
+					System.out.println("Number of Guesses used: " + counter);
+					playerGuess(userGuess);
+					System.out.print("Enter your Guess letter: ");
+					System.out.println("\n" + "----------------------------------------------" + "\n");
+					char guess = sc.next().charAt(0);
+					counter++;
+
+					for (int i = 0; i < word.length(); i++) {
+						if (secret[i] == guess) {
+							userGuess[i] = guess;
+						}
+					}
+					
+					if (playerWon(userGuess)) {
+						long timeStop = System.currentTimeMillis();
+						double timeTaken = (timeStop - timeStart)/1000;
+						System.out.println("Time taken: " + timeTaken + " seconds");
+						System.out.println("CONGRATULATIONS!");
+						System.out.println("Correct word is " + word);
+						System.out.println("Number of Guesses left: " + (totalguess - counter));
+						System.out.println("Number of Guesses used: " + counter);
+						System.out.println("THANK YOU FOR PLAYING!" + "\n" + "HOPE TO SEE YOU AGAIN!");
+						System.exit(0);
+					}
+					
+					if (counter == 8 && !playerWon(userGuess)) {
+						System.out.println("PLEASE TRY AGAIN" + "\n" + "Number of guesses left has reached 0");
+						System.out.println("Correct word is " + word);
+						System.out.println("THANK YOU FOR PLAYING!");
+					}
+				}
+			}
+		}
+		else {
+			System.out.println("GOODBYE, HOPE TO SEE YOU AGAIN!");
+		}
+
+		sc.close();
+
+	}
+
+	public static boolean playerWon (char [] userGuess) {
+		for (int i = 0; i < userGuess.length; i++) {
+			if (userGuess[i] == '_') {
+				return false;
+			}		
+		}
+		return true;
+	}
+
+	public static void playerGuess(char userGuess []) {
+		for (int i = 0; i < userGuess.length; i++)
+			System.out.print(userGuess[i] + " ");
+		System.out.println();
+	}
+
+}
